@@ -1,26 +1,22 @@
 import PropTypes from 'prop-types';
 import { BtnItem, BtnList, Button } from './FeedbackOptions.styled';
 
-const FeedbackOptions = ({ onClick }) => {
+const FeedbackOptions = ({ options, onClick }) => {
   return (
     <BtnList>
-      <BtnItem>
-        <Button onClick={() => onClick('good')} type="button">
-          Good
-        </Button>
-      </BtnItem>
+      {options.map((option, index) => {
+        const label =
+          option.split('')[0].toUpperCase() +
+          option.split('').slice(1).join('');
 
-      <BtnItem>
-        <Button onClick={() => onClick('neutral')} type="button">
-          Neutral
-        </Button>
-      </BtnItem>
-
-      <BtnItem>
-        <Button onClick={() => onClick('bad')} type="button">
-          Bad
-        </Button>
-      </BtnItem>
+        return (
+          <BtnItem key={index}>
+            <Button onClick={() => onClick(option)} type="button">
+              {label}
+            </Button>
+          </BtnItem>
+        );
+      })}
     </BtnList>
   );
 };
@@ -29,4 +25,5 @@ export default FeedbackOptions;
 
 FeedbackOptions.propTypes = {
   onClick: PropTypes.func,
+  options: PropTypes.arrayOf(PropTypes.string),
 };
